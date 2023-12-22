@@ -11,10 +11,11 @@ size = 32
 dim = 3
 
 def check_pic(pic):
-  img = cv.resize(pic, (size,size))
-  img = np.reshape(img,[1,size,size,dim])
-  return loaded_model.predict_classes(img)
-
+    img = cv.resize(pic, (size, size))
+    img = np.reshape(img, [1, size, size, dim])
+    probabilities = loaded_model.predict(img)
+    class_label = np.argmax(probabilities, axis=1)
+    return class_label
 
 json_file = open('ball-net/model/model.json', 'r')
 loaded_model_json = json_file.read()
